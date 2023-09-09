@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $response = Http::get('http://mh-api-rest-l9-clientes-servicios.test/api/clients');
     $data = $response->json();
+    $names = '';
 
-    return $data;
+    foreach ($data['clients'] as $client) {
+        $names .= $client['name'] . '<br>';
+    }
+
+    return $names;
 });
