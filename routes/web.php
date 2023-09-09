@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,13 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $response = Http::get('http://mh-api-rest-l9-clientes-servicios.test/api/clients');
-    $data = $response->json();
-    $dataClients = '';
-
-    foreach ($data['clients'] as $client) {
-        $dataClients .= $client['name'] . ' - ' . $client['email'] . '<br>';
-    }
-
-    return $dataClients;
+    return to_route('clients.index');
 });
+
+Route::resources([
+    'clients' => ClientController::class,
+]);
