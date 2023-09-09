@@ -3,53 +3,34 @@
 @section('title', 'Clients index')
 
 @section('body')
-    <h1>MHenriquez clientes</h1>
+    <div class="container">
+        <header class="my-3">
+            <h1>MHenriquez clientes</h1>
+        </header>
 
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Email</th>
-                <th scope="col">Teléfono</th>
-                <th scope="col">Dirección</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach ($data as $client)
-                <tr>
-                    <td>{{ $client['id'] }}</td>
-                    <td>{{ $client['name'] }}</td>
-                    <td>{{ $client['email'] }}</td>
-                    <td>{{ ($client['phone']) ? $client['phone'] : '-' }}</td>
-                    <td>{{ ($client['address']) ? $client['address'] : '-' }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        <main>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Dirección</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $client)
+                        <tr>
+                            <th scope="row">{{ $client['id'] }}</th>
+                            <td>{{ $client['name'] }}</td>
+                            <td>{{ $client['email'] }}</td>
+                            <td>{{ ($client['phone']) ? $client['phone'] : '-' }}</td>
+                            <td>{{ ($client['address']) ? $client['address'] : '-' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </main>
     </div>
-  </div>
-</div>
 @endsection
