@@ -18,7 +18,13 @@ class ClientController extends Controller
         $endpoint = '/clients';
 
         $response = Http::get(Helper::getURLMHClientesServiciosAPI() . $endpoint);
-        $data = $response->json();
+
+        if($response->ok()) {
+            $data = $response->json();
+        }
+        else {
+            $data = [];
+        };
 
         // Como el objeto response implementa ArrayAccess se puede acceder directamente a las claves del json
         return view('clients.index', ['data' => $data['clients']]);

@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $client)
+                    @forelse ($data as $client)
                         <tr>
                             <th scope="row">{{ $client['id'] }}</th>
                             <td>{{ $client['name'] }}</td>
@@ -46,7 +46,11 @@
                             <td>{{ ($client['phone']) ? $client['phone'] : '-' }}</td>
                             <td>{{ ($client['address']) ? $client['address'] : '-' }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <th scope="row" colspan="5">No hay clientes que mostrar</th>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </main>
