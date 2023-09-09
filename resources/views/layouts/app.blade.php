@@ -8,8 +8,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <title>MHenriquez - @yield('title')</title>
+
+    @yield('styles')
 </head>
 <body>
     @yield('body')
+
+    @yield('scripts')
 </body>
 </html>

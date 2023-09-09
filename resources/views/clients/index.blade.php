@@ -55,13 +55,14 @@
                                     Editar
                                 </a>
 
+                                <a href="{{ route('clients.destroy', $client['id']) }}" class="btn btn-sm btn-danger" role="button" data-form="{{ $client['id'] }}">
+                                    Borrar
+                                </a>
+
                                 {{-- Se debe enviar a través de delete porque la url es igual a show --}}
-                                <form action="{{ route('clients.destroy', $client['id']) }}" method="post" class="d-inline-block">
+                                <form action="{{ route('clients.destroy', $client['id']) }}" method="post" id="{{ $client['id'] }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-sm btn-danger" role="button" type="submit">
-                                        Borrar
-                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -74,4 +75,17 @@
             </table>
         </main>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('click', (e) => {
+            const fuenteEvento = e.target;
+
+            if(fuenteEvento.dataset.form) {
+                e.preventDefault();
+                document.querySelector(`form[id="${fuenteEvento.dataset.form}"]`).submit();
+            }
+        });
+    </script>
 @endsection
