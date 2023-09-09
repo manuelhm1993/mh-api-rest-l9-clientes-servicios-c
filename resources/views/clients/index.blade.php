@@ -50,6 +50,19 @@
                                 <a href="{{ route('clients.show', $client['id']) }}" class="btn btn-sm btn-success" role="button">
                                     Ver
                                 </a>
+
+                                <a href="{{ route('clients.edit', $client['id']) }}" class="btn btn-sm btn-warning" role="button">
+                                    Editar
+                                </a>
+
+                                {{-- Se debe enviar a través de delete porque la url es igual a show --}}
+                                <form action="{{ route('clients.destroy', $client['id']) }}" method="post" class="d-inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger" role="button" type="submit">
+                                        Borrar
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @empty

@@ -127,6 +127,24 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $endpoint = "/clients/$id";
+
+        $response = Http::delete(Helper::getURLMHClientesServiciosAPI() . $endpoint);
+        $status    = $response->status();
+
+        if($response->ok()) {
+            $feedback  = 'Éxito';
+            $message   = 'Cliente borrado exitosamente';
+        }
+        else {
+            $feedback  = 'Error';
+            $message   = 'Error al borrar el cliente';
+        };
+
+        // Mensajes flash, se pueden concatenar tantos como sean necesarios
+        return to_route('clients.index')
+               ->with('feedback', $feedback)
+               ->with('message', $message)
+               ->with('status', $status);
     }
 }
