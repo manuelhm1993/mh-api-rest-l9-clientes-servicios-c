@@ -104,7 +104,23 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $endpoint = "/clients/$id";
+
+        $response = Http::get(Helper::getURLMHClientesServiciosAPI() . $endpoint);
+        $data     = $response->json();
+
+        if(!$response->ok()) {
+            $feedback  = 'Error';
+            $message   = 'Error al desplegar el formulario de actualización';
+            $status    = $response->status();
+
+            return to_route('clients.index')
+                   ->with('feedback', $feedback)
+                   ->with('message', $message)
+                   ->with('status', $status);
+        }
+
+        return view('clients.edit', ['client' => $data['client']]);
     }
 
     /**
@@ -116,7 +132,24 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $endpoint = "/clients/$id";
+
+        $response = Http::put(Helper::getURLMHClientesServiciosAPI() . $endpoint, $request->all());
+        $status    = $response->status();
+
+        if($response->ok()) {
+            $feedback  = 'Éxito';
+            $message = 'Cliente actualizado exitosamente';
+        }
+        else {
+            $feedback  = 'Error';
+            $message   = 'Error al actualizar el cliente';
+        }
+
+        return to_route('clients.index')
+                   ->with('feedback', $feedback)
+                   ->with('message', $message)
+                   ->with('status', $status);
     }
 
     /**
