@@ -51,18 +51,22 @@ class ClientController extends Controller
         $endpoint = '/clients';
 
         $response = Http::post(Helper::getURLMHClientesServiciosAPI() . $endpoint, $request->all());
+        $status   = $response->status();
 
         if($response->ok()) {
-            $status  = 'Éxito';
+            $feedback  = 'Éxito';
             $message = 'Cliente creado exitosamente';
         }
         else {
-            $status  = 'Error';
+            $feedback  = 'Error';
             $message = 'Error al crear al cliente';
         };
 
         // Mensajes flash, se pueden concatenar tantos como sean necesarios
-        return to_route('clients.index')->with('status', $status)->with('message', $message);
+        return to_route('clients.index')
+               ->with('feedback', $feedback)
+               ->with('message', $message)
+               ->with('status', $status);
     }
 
     /**
@@ -73,7 +77,23 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        $endpoint = "/clients/$id";
+
+        $response = Http::get(Helper::getURLMHClientesServiciosAPI() . $endpoint);
+        $data     = $response->json();
+
+        if(!$response->ok()) {
+            $feedback  = 'Error';
+            $message   = 'Error al mostrar el detalle del cliente';
+            $status    = $response->status();
+
+            return to_route('clients.index')
+                   ->with('feedback', $feedback)
+                   ->with('message', $message)
+                   ->with('status', $status);
+        }
+
+        return view('clients.show', ['client' => $data['client']]);
     }
 
     /**

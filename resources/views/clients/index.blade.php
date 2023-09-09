@@ -4,15 +4,15 @@
 
 @section('body')
     <div class="container">
-        @if(session('status'))
-            @if (session('status') === 'Éxito')
+        @if(session('feedback'))
+            @if (session('feedback') === 'Éxito')
             <div class="alert alert-success my-3 alert-dismissible fade show" role="alert">
-                <strong>¡{{ session('status') }}!</strong> {{ session('message') }}
+                <strong>¡{{ session('feedback') }}!</strong> {{ session('message') }} - status: {{ session('status') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @else
             <div class="alert alert-danger my-3 alert-dismissible fade show" role="alert">
-                <strong>¡{{ session('status') }}!</strong> {{ session('message') }}
+                <strong>¡{{ session('feedback') }}!</strong> {{ session('message') }} - status: {{ session('status') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
@@ -35,6 +35,7 @@
                         <th scope="col">Email</th>
                         <th scope="col">Teléfono</th>
                         <th scope="col">Dirección</th>
+                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +46,11 @@
                             <td>{{ $client['email'] }}</td>
                             <td>{{ ($client['phone']) ? $client['phone'] : '-' }}</td>
                             <td>{{ ($client['address']) ? $client['address'] : '-' }}</td>
+                            <td>
+                                <a href="{{ route('clients.show', $client['id']) }}" class="btn btn-sm btn-success" role="button">
+                                    Ver
+                                </a>
+                            </td>
                         </tr>
                     @empty
                         <tr>
