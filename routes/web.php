@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $response = Http::get('http://mh-api-rest-l9-clientes-servicios.test/api/clients');
+    $data = $response->json();
+
+    return $data;
 });
