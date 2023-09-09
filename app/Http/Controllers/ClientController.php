@@ -31,7 +31,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
@@ -42,7 +42,21 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $endpoint = '/clients';
+
+        $response = Http::post(Helper::getURLMHClientesServiciosAPI() . $endpoint, $request->all());
+
+        if($response->ok()) {
+            $status  = 'Éxito';
+            $message = 'Cliente creado exitosamente';
+        }
+        else {
+            $status  = 'Error';
+            $message = 'Error al crear al cliente';
+        };
+
+        // Mensajes flash, se pueden concatenar tantos como sean necesarios
+        return to_route('clients.index')->with('status', $status)->with('message', $message);
     }
 
     /**

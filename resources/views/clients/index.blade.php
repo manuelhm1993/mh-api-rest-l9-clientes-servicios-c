@@ -4,11 +4,29 @@
 
 @section('body')
     <div class="container">
+        @if(session('status'))
+            @if (session('status') === 'Éxito')
+            <div class="alert alert-success my-3 alert-dismissible fade show" role="alert">
+                <strong>¡{{ session('status') }}!</strong> {{ session('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @else
+            <div class="alert alert-danger my-3 alert-dismissible fade show" role="alert">
+                <strong>¡{{ session('status') }}!</strong> {{ session('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+        @endif
+
         <header class="my-3">
             <h1>MHenriquez clientes</h1>
         </header>
 
         <main>
+            <a href="{{ route('clients.create') }}" class="btn btn-primary mb-3" role="button">
+                Crear cliente
+            </a>
+
             <table class="table">
                 <thead>
                     <tr>
